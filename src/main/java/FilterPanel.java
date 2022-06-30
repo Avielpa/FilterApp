@@ -14,9 +14,18 @@ import java.net.URL;
 public class FilterPanel extends JPanel {
     public static final int MIDDEL_OF_WINDOWS = 450;
     public static final int BUTTON_START_Y=0;
+    public static final int BUTTON_WIDTH=120;
+    public static final int BUTTON_HEIGHT=40;
+    public static final int PHOTO_BEFORE_X=0;
+    public static final int PHOTO_BEFORE_Y=0;
+    public static final int PHOTO_AFTER_X=570;
+    public static final int PHOTO_AFTER_Y=0;
+    public static final int PHOTO_WIDTH=400;
+    public static final int PHOTO_HEIGHT=500;
 
 
-    private JButton colorShiftLeft,filter2,filter3,filter4,filter5 ,usernameSearch;
+
+    private JButton colorShiftLeft, colorShiftRight, grayscale, showBorder, negative,usernameSearch;
     private JTextField username;
     private String path="https://www.facebook.com/ ";
     private File before,after;
@@ -34,33 +43,40 @@ public class FilterPanel extends JPanel {
 //        ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.addArguments("C:\\Users\\mori8\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1");
 //        ChromeDriver driver=new ChromeDriver();
-        colorShiftLeft =new JButton("filter 1");
-        filter2=new JButton("filter 2");
-        filter3=new JButton("filter 3");
-        filter4=new JButton("filter 4");
-        filter5=new JButton("filter 5");
+        colorShiftLeft =new JButton("colorShiftLeft");
+        colorShiftRight =new JButton("colorShiftRight");
+        grayscale =new JButton("grayscale");
+        showBorder =new JButton("showBorder");
+        negative =new JButton("negative");
         usernameSearch=new JButton("search username");
         username=new JTextField();
         before1=new JLabel();
         after1=new JLabel();
 
         this.add(colorShiftLeft);
-        this.add(filter2);
-        this.add(filter3);
-        this.add(filter4);
-        this.add(filter5);
+        this.add(colorShiftRight);
+        this.add(grayscale);
+        this.add(showBorder);
+        this.add(negative);
         this.add(usernameSearch);
         this.add(username);
         this.add(before1);
         this.add(after1);
 
 
-        usernameSearch.setBounds(MIDDEL_OF_WINDOWS+50,BUTTON_START_Y,150,50);
-        colorShiftLeft.setBounds(MIDDEL_OF_WINDOWS,usernameSearch.getY()+80,100,50);
-        filter2.setBounds(MIDDEL_OF_WINDOWS, colorShiftLeft.getY()+60,100,50);
-        filter3.setBounds(MIDDEL_OF_WINDOWS,filter2.getY()+60,100,50);
-        filter4.setBounds(MIDDEL_OF_WINDOWS,filter3.getY()+60,100,50);
-        filter5.setBounds(MIDDEL_OF_WINDOWS,filter4.getY()+60,100,50);
+        colorShiftLeft.setVisible(false);
+        colorShiftRight.setVisible(false);
+        grayscale.setVisible(false);
+        showBorder.setVisible(false);
+        negative.setVisible(false);
+
+
+        usernameSearch.setBounds(MIDDEL_OF_WINDOWS+50,BUTTON_START_Y,150,BUTTON_HEIGHT);
+        colorShiftLeft.setBounds(MIDDEL_OF_WINDOWS-10,usernameSearch.getY()+80,BUTTON_WIDTH,BUTTON_HEIGHT);
+        colorShiftRight.setBounds(MIDDEL_OF_WINDOWS-10, colorShiftLeft.getY()+60,BUTTON_WIDTH,BUTTON_HEIGHT);
+        grayscale.setBounds(MIDDEL_OF_WINDOWS-10, colorShiftRight.getY()+60,BUTTON_WIDTH,BUTTON_HEIGHT);
+        showBorder.setBounds(MIDDEL_OF_WINDOWS-10, grayscale.getY()+60,BUTTON_WIDTH,BUTTON_HEIGHT);
+        negative.setBounds(MIDDEL_OF_WINDOWS-10, showBorder.getY()+60,BUTTON_WIDTH,BUTTON_HEIGHT);
         username.setBounds(MIDDEL_OF_WINDOWS-50,BUTTON_START_Y+10,100,30);
 
 
@@ -74,17 +90,22 @@ public class FilterPanel extends JPanel {
             driver.manage().window().maximize();
             ImagemFileOnSite(driver);
             try{
-                beforeFilter=photo(0,0,400,500,before1,before,true);
-                afterFilter=photo(570,0,400,500,after1,after,true);
+                beforeFilter=photo(PHOTO_BEFORE_X,PHOTO_BEFORE_Y,PHOTO_WIDTH,500,before1,before,true);
+                afterFilter=photo(PHOTO_AFTER_X,PHOTO_AFTER_Y,PHOTO_WIDTH,PHOTO_HEIGHT,after1,after,true);
             }catch (Exception e){
 
             }
+            colorShiftLeft.setVisible(true);
+            colorShiftRight.setVisible(true);
+            grayscale.setVisible(true);
+            showBorder.setVisible(true);
+            negative.setVisible(true);
         });
         colorShiftLeft.addActionListener((event) ->{
             Filters.colorShiftLeft(after);
 
             try{
-            afterFilter=photo(570,0,400,500,after1,after,true);
+            afterFilter=photo(PHOTO_AFTER_X,PHOTO_AFTER_Y,PHOTO_WIDTH,PHOTO_HEIGHT,after1,after,true);
             }catch (Exception e){
 
             }
@@ -92,37 +113,37 @@ public class FilterPanel extends JPanel {
 
 
         });
-        filter2.addActionListener((event) ->{
+        colorShiftRight.addActionListener((event) ->{
             Filters.colorShiftRight(after);
             try{
-                afterFilter=photo(570,0,400,500,after1,after,true);
+                afterFilter=photo(PHOTO_AFTER_X,PHOTO_AFTER_Y,PHOTO_WIDTH,PHOTO_HEIGHT,after1,after,true);
             }catch (Exception e){
 
             }
             repaintPhoto();
         });
-        filter3.addActionListener((event) ->{
+        grayscale.addActionListener((event) ->{
             Filters.grayscale(after);
             try{
-                afterFilter=photo(570,0,400,500,after1,after,true);
+                afterFilter=photo(PHOTO_AFTER_X,PHOTO_AFTER_Y,PHOTO_WIDTH,PHOTO_HEIGHT,after1,after,true);
             }catch (Exception e){
 
             }
             repaintPhoto();
         });
-        filter4.addActionListener((event) ->{
+        showBorder.addActionListener((event) ->{
             Filters.showBorder(after);
             try{
-                afterFilter=photo(570,0,400,500,after1,after,true);
+                afterFilter=photo(PHOTO_AFTER_X,PHOTO_AFTER_Y,PHOTO_WIDTH,PHOTO_HEIGHT,after1,after,true);
             }catch (Exception e){
 
             }
             repaintPhoto();
         });
-        filter5.addActionListener((event) ->{
+        negative.addActionListener((event) ->{
             Filters.negative(after);
             try{
-                afterFilter=photo(570,0,400,500,after1,after,true);
+                afterFilter=photo(PHOTO_AFTER_X,PHOTO_AFTER_Y,PHOTO_WIDTH,PHOTO_HEIGHT,after1,after,true);
             }catch (Exception e){
 
             }
@@ -139,7 +160,7 @@ public class FilterPanel extends JPanel {
     public BufferedImage photo(int x, int y, int width, int height, JLabel photo,File file,boolean run) throws IOException {
         photo.setBounds(x, y, width, height);
         BufferedImage bufferedImage = ImageIO.read(file);
-        Image image = resize(bufferedImage, 1000/2 - 100, height);
+        Image image = resize(bufferedImage, PHOTO_WIDTH, height);
         BufferedImage buffer = (BufferedImage) image;
         photo.setIcon(new ImageIcon(image));
         if (run) {
@@ -159,7 +180,7 @@ public class FilterPanel extends JPanel {
                 try {
                     photoSource=driver.findElement(By.xpath("/html/body/div[1]/div/div[1]/div/div[4]/div/div/div[1]/div/div[3]/div[2]/div/div[2]/div/div[1]/div/div[2]/div/div/div/img"));
                 }catch (Exception e){
-                    System.out.println("error");
+
                 }
 
             }while (photoSource==null);
