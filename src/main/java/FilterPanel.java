@@ -1,5 +1,4 @@
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,14 +10,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
 
 public class FilterPanel extends JPanel {
     public static final int MIDDEL_OF_WINDOWS = 450;
     public static final int BUTTON_START_Y=0;
 
 
-    private JButton filter1,filter2,filter3,filter4,filter5 ,usernameSearch;
+    private JButton colorShiftLeft,filter2,filter3,filter4,filter5 ,usernameSearch;
     private JTextField username;
     private String path="https://www.facebook.com/ ";
     private File before,after;
@@ -36,7 +34,7 @@ public class FilterPanel extends JPanel {
 //        ChromeOptions chromeOptions = new ChromeOptions();
 //        chromeOptions.addArguments("C:\\Users\\mori8\\AppData\\Local\\Google\\Chrome\\User Data\\Profile 1");
 //        ChromeDriver driver=new ChromeDriver();
-        filter1=new JButton("filter 1");
+        colorShiftLeft =new JButton("filter 1");
         filter2=new JButton("filter 2");
         filter3=new JButton("filter 3");
         filter4=new JButton("filter 4");
@@ -46,7 +44,7 @@ public class FilterPanel extends JPanel {
         before1=new JLabel();
         after1=new JLabel();
 
-        this.add(filter1);
+        this.add(colorShiftLeft);
         this.add(filter2);
         this.add(filter3);
         this.add(filter4);
@@ -58,8 +56,8 @@ public class FilterPanel extends JPanel {
 
 
         usernameSearch.setBounds(MIDDEL_OF_WINDOWS+50,BUTTON_START_Y,150,50);
-        filter1.setBounds(MIDDEL_OF_WINDOWS,usernameSearch.getY()+80,100,50);
-        filter2.setBounds(MIDDEL_OF_WINDOWS,filter1.getY()+60,100,50);
+        colorShiftLeft.setBounds(MIDDEL_OF_WINDOWS,usernameSearch.getY()+80,100,50);
+        filter2.setBounds(MIDDEL_OF_WINDOWS, colorShiftLeft.getY()+60,100,50);
         filter3.setBounds(MIDDEL_OF_WINDOWS,filter2.getY()+60,100,50);
         filter4.setBounds(MIDDEL_OF_WINDOWS,filter3.getY()+60,100,50);
         filter5.setBounds(MIDDEL_OF_WINDOWS,filter4.getY()+60,100,50);
@@ -82,7 +80,7 @@ public class FilterPanel extends JPanel {
 
             }
         });
-        filter1.addActionListener((event) ->{
+        colorShiftLeft.addActionListener((event) ->{
             Filters.colorShiftLeft(after);
 
             try{
